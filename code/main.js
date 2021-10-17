@@ -9,14 +9,29 @@ loadSprite('bluebirdflap1', "sprites/bluebirdflap1.png")
 loadSprite('brownbirdflap1', "sprites/brownbirdflap1.png")
 loadSprite('pistol', "sprites/pistol.png")
 loadSprite("rpg", "sprites/rpg.png")
+loadSprite("sky", "sprites/sky.png")
+
 
 let highScore = 0;
 
 scene("start", () => {
   add([
-    text("Dodge Gun"),
+    text("On The Run"),
     pos(width() / 4, height() / 4),
   ]);
+
+  layers([
+    "bg",
+    "obj",
+    "ui",
+  ], "obj");
+
+  add([
+    sprite("sky"),
+    layer("bg")
+  ]);
+
+
 
   mouseClick(() => {
     go("game")
@@ -29,6 +44,17 @@ scene("game", () => {
 	const JUMP_FORCE = 800;
 
   let speed = 320;
+
+  layers([
+    "bg",
+    "obj",
+    "ui",
+  ], "obj");
+
+  add([
+    sprite("sky"),
+    layer("bg")
+  ]);
 
   add([
     rect(width(), GROUND_HEIGHT),
@@ -184,6 +210,18 @@ scene("game", () => {
 });
 
 scene("lose", (score) => {
+
+  layers([
+    "bg",
+    "obj",
+    "ui",
+  ], "obj");
+
+  add([
+    sprite("sky"),
+    layer("bg")
+  ]);
+
   if (score > highScore) {
     highScore = score;
   }

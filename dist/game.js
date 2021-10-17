@@ -2359,11 +2359,21 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
   loadSprite("brownbirdflap1", "sprites/brownbirdflap1.png");
   loadSprite("pistol", "sprites/pistol.png");
   loadSprite("rpg", "sprites/rpg.png");
+  loadSprite("sky", "sprites/sky.png");
   var highScore = 0;
   scene("start", () => {
     add([
-      text("Dodge Gun"),
+      text("On The Run"),
       pos(width() / 4, height() / 4)
+    ]);
+    layers([
+      "bg",
+      "obj",
+      "ui"
+    ], "obj");
+    add([
+      sprite("sky"),
+      layer("bg")
     ]);
     mouseClick(() => {
       go("game");
@@ -2373,6 +2383,15 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
     const GROUND_HEIGHT = 48;
     const JUMP_FORCE = 800;
     let speed = 320;
+    layers([
+      "bg",
+      "obj",
+      "ui"
+    ], "obj");
+    add([
+      sprite("sky"),
+      layer("bg")
+    ]);
     add([
       rect(width(), GROUND_HEIGHT),
       pos(0, height() - 48),
@@ -2398,9 +2417,6 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
       follow(bean),
       area()
     ]);
-    keyPress("left", () => {
-      bean.angle += 90;
-    });
     keyPress("up", () => {
       if (bean.grounded()) {
         bean.jump(JUMP_FORCE);
@@ -2455,11 +2471,6 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
         p.passed = true;
       }
     });
-    action("bluebird", (p) => {
-      if (p.pos.x == 0) {
-        go("lose", score);
-      }
-    });
     loop((Math.random() * 100 + 100) / 100, () => {
       spawnSign();
     });
@@ -2501,6 +2512,15 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
     __name(addScore, "addScore");
   });
   scene("lose", (score) => {
+    layers([
+      "bg",
+      "obj",
+      "ui"
+    ], "obj");
+    add([
+      sprite("sky"),
+      layer("bg")
+    ]);
     if (score > highScore) {
       highScore = score;
     }
